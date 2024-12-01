@@ -25,13 +25,10 @@ app.use("/api/order", require("./routes/order.routes"))
 
 
 // 404
-app.use('*', (req, res, next) => {
-    if (req.accepts('html')) {
-        res.sendFile(path.join(__dirname, 'index.html'));
-    } else {
-        next();
-    }
-});
+app.use("*", (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+    // res.status(404).json({ message: "Resource Not Found" })
+})
 
 
 //4 Error Handeler
