@@ -19,9 +19,14 @@ app.use(cors({
 app.use("/api/auth", require("./routes/auth.routes"))
 app.use("/api/admin", require("./routes/admin.routes"))
 app.use("/api/order", require("./routes/order.routes"))
+
+
+// 404
 app.use("*", (req, res) => {
-    res.status(404).json({ message: "Resource Not Found" })
+    res.sendFile(path.join(__dirname, "dist", "index.html"))
+    // res.status(404).json({ message: "Resource Not Found" })
 })
+
 
 //4 Error Handeler
 app.use((error, req, res, next) => {
@@ -29,7 +34,7 @@ app.use((error, req, res, next) => {
 })
 // 5 Server Run 
 mongoose.connection.once("open", () => {
-    app.listen(process.env.PORT, console.log("SERVER RUNNING"))
     console.log("MONGO CONNECTED")
+    app.listen(process.env.PORT, console.log("SERVER RUNNING"))
 
 })
